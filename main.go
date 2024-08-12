@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-sql-driver/mysql"
@@ -17,27 +18,6 @@ type Books struct {
 	Author    string `json:"author"`
 	CheckedIn int32  `json:"checked"`
 }
-
-/*func startUp() {
-	cfg := mysql.Config{
-		User:   "root",
-		Passwd: "Ba$h2202",
-		Net:    "tcp",
-		Addr:   "127.0.0.1:3306",
-		DBName: "alexandria",
-	}
-
-	var err error
-	db, err = sql.Open("mysql", cfg.FormatDSN())
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	pingErr := db.Ping()
-	if pingErr != nil {
-		log.Fatal(pingErr)
-	}
-}*/
 
 func checkOut(c *gin.Context) {
 	var bk Books
@@ -148,7 +128,7 @@ func main() {
 	// db := startUp()
 	cfg := mysql.Config{
 		User:   "root",
-		Passwd: "Ba$h2202",
+		Passwd: os.Getenv("DBPASS"),
 		Net:    "tcp",
 		Addr:   "127.0.0.1:3306",
 		DBName: "alexandria",
